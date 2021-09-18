@@ -39,6 +39,35 @@ import javax.swing.text.Document;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.StringTokenizer;
+
+import javax.swing.ActionMap;
+import javax.swing.DefaultCellEditor;
+import javax.swing.InputMap;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTree;
+import javax.swing.KeyStroke;
+import javax.swing.Timer;
+import javax.swing.TransferHandler;
+import javax.swing.border.LineBorder;
+import javax.swing.table.TableColumn;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -48,7 +77,9 @@ public class Main extends javax.swing.JFrame {
 
     File archivoAbierto = null;
     ArrayList<File> recientes = new ArrayList<File>();
+    ArrayList<Clase> clases = new ArrayList<Clase>();
     StyledDocument doc;
+    Clase abierta = null;
     Style style;
 
     public Main() {
@@ -63,9 +94,7 @@ public class Main extends javax.swing.JFrame {
             modelo.addElement(fontNames[i]);
         }
         fontBox.setModel(modelo);
-        
-        
-        
+
         componentType.setTransferHandler(new TransferHandler("text"));
         MouseListener ml = new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -75,8 +104,6 @@ public class Main extends javax.swing.JFrame {
             }
         };
         componentType.addMouseListener(ml);
-        
-        componentType.setVisible(true);
 
     }
 
@@ -94,6 +121,34 @@ public class Main extends javax.swing.JFrame {
         recientesTable = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        UMLCreation = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        UMLcode = new javax.swing.JTextPane();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jtree = new javax.swing.JTree();
+        jPanel2 = new javax.swing.JPanel();
+        btnewclass = new javax.swing.JButton();
+        btdeleteclass = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
+        btaddclass = new javax.swing.JButton();
+        addvar = new javax.swing.JButton();
+        remvar = new javax.swing.JButton();
+        clasenombre = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        clasescb = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        checkpadre = new javax.swing.JCheckBox();
+        btupdateclass = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        FCCreation = new javax.swing.JDialog();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jToolBar2 = new javax.swing.JToolBar();
         boldButton = new javax.swing.JButton();
@@ -115,12 +170,22 @@ public class Main extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         componentType = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
+        pane = new javax.swing.JTextPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jMenuBar3 = new javax.swing.JMenuBar();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -208,7 +273,290 @@ public class Main extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        UMLCreation.setBackground(new java.awt.Color(51, 51, 51));
+
+        jPanel3.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel3.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel3.setMaximumSize(new java.awt.Dimension(848, 569));
+
+        jScrollPane7.setViewportView(UMLcode);
+
+        jtree.setBorder(null);
+        jtree.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        jtree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jtree.setLargeModel(true);
+        jScrollPane6.setViewportView(jtree);
+
+        jPanel2.setBackground(new java.awt.Color(0, 51, 102));
+
+        btnewclass.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnewclass.setText("Nueva Clase");
+        btnewclass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnewclassMouseClicked(evt);
+            }
+        });
+        btnewclass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnewclassActionPerformed(evt);
+            }
+        });
+
+        btdeleteclass.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btdeleteclass.setText("Borrar Clase");
+        btdeleteclass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btdeleteclassMouseClicked(evt);
+            }
+        });
+        btdeleteclass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btdeleteclassActionPerformed(evt);
+            }
+        });
+
+        tabla.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tipo", "Nombre"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tabla);
+
+        btaddclass.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btaddclass.setText("AÑADIR");
+        btaddclass.setToolTipText("");
+        btaddclass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btaddclassMouseClicked(evt);
+            }
+        });
+        btaddclass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btaddclassActionPerformed(evt);
+            }
+        });
+
+        addvar.setBackground(new java.awt.Color(204, 204, 255));
+        addvar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        addvar.setForeground(new java.awt.Color(0, 0, 0));
+        addvar.setText("Añadir Variable");
+        addvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addvarActionPerformed(evt);
+            }
+        });
+
+        remvar.setBackground(new java.awt.Color(255, 204, 204));
+        remvar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        remvar.setForeground(new java.awt.Color(0, 0, 0));
+        remvar.setText("Remover Variable");
+        remvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remvarActionPerformed(evt);
+            }
+        });
+
+        clasenombre.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        clasenombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clasenombreActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Titulo:");
+
+        clasescb.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Padre:");
+
+        checkpadre.setBackground(new java.awt.Color(0, 51, 102));
+        checkpadre.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        checkpadre.setForeground(new java.awt.Color(255, 255, 255));
+        checkpadre.setText("Tiene Padre");
+        checkpadre.setBorder(null);
+        checkpadre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkpadreActionPerformed(evt);
+            }
+        });
+
+        btupdateclass.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btupdateclass.setText("UPDATE");
+        btupdateclass.setToolTipText("");
+        btupdateclass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btupdateclassMouseClicked(evt);
+            }
+        });
+        btupdateclass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btupdateclassActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(remvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnewclass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btdeleteclass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clasenombre))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clasescb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(checkpadre)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btupdateclass)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btaddclass, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(btnewclass, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btdeleteclass, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(clasenombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addvar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(remvar)
+                .addGap(18, 18, 18)
+                .addComponent(checkpadre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(clasescb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btaddclass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btupdateclass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(98, 98, 98))
+        );
+
+        jButton12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton12.setText("Editar");
+        jButton12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton12MouseClicked(evt);
+            }
+        });
+
+        jButton10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton10.setText("Generar Codigo");
+        jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton10MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(6, 6, 6))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane7)
+                .addContainerGap())
+        );
+
+        jMenuBar2.setForeground(new java.awt.Color(51, 51, 51));
+
+        jMenu2.setText("File");
+
+        jMenuItem1.setText("Nuevo Proyecto");
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem7.setText("Guardar como");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem7);
+
+        jMenuItem8.setText("Abrir");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem8);
+
+        jMenuBar2.add(jMenu2);
+
+        UMLCreation.setJMenuBar(jMenuBar2);
+
+        javax.swing.GroupLayout UMLCreationLayout = new javax.swing.GroupLayout(UMLCreation.getContentPane());
+        UMLCreation.getContentPane().setLayout(UMLCreationLayout);
+        UMLCreationLayout.setHorizontalGroup(
+            UMLCreationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        UMLCreationLayout.setVerticalGroup(
+            UMLCreationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         jToolBar2.setRollover(true);
 
@@ -383,7 +731,33 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        componentType.setText("jLabel1");
+        componentType.setText("Prueba");
+
+        jScrollPane1.setViewportView(pane);
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(jList1);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(157, 157, 157)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(179, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jLayeredPane1.setLayer(jToolBar2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -394,22 +768,31 @@ public class Main extends javax.swing.JFrame {
         jLayeredPane1.setLayer(jButton9, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(componentType, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap(74, Short.MAX_VALUE)
-                .addComponent(componentType)
-                .addGap(15, 15, 15)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(171, 171, 171))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(loadBar, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(componentType)
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jButton6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(loadBar, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
@@ -424,15 +807,20 @@ public class Main extends javax.swing.JFrame {
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(componentType)))
+                        .addComponent(componentType))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton6)
@@ -443,6 +831,59 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(loadBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 6, Short.MAX_VALUE))
         );
+
+        jMenu5.setText("File");
+
+        jMenuItem9.setText("Nuevo Flujo Grama");
+        jMenu5.add(jMenuItem9);
+
+        jMenuItem4.setText("Guardar como");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem4);
+
+        jMenu6.setText("Abrir");
+
+        jMenuItem10.setText("Recientes");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem10);
+
+        jMenuItem11.setText("Abrir Archivo");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem11);
+
+        jMenu5.add(jMenu6);
+
+        jMenuBar3.add(jMenu5);
+
+        FCCreation.setJMenuBar(jMenuBar3);
+
+        javax.swing.GroupLayout FCCreationLayout = new javax.swing.GroupLayout(FCCreation.getContentPane());
+        FCCreation.getContentPane().setLayout(FCCreationLayout);
+        FCCreationLayout.setHorizontalGroup(
+            FCCreationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FCCreationLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLayeredPane1)
+                .addContainerGap())
+        );
+        FCCreationLayout.setVerticalGroup(
+            FCCreationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLayeredPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("File");
 
@@ -467,14 +908,6 @@ public class Main extends javax.swing.JFrame {
         jMenu3.add(jMenuItem3);
 
         jMenu1.add(jMenu3);
-
-        jMenuItem4.setText("Guardar como");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem4);
 
         jMenu4.setText("Abrir");
 
@@ -504,11 +937,11 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1)
+            .addGap(0, 455, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 337, Short.MAX_VALUE)
         );
 
         pack();
@@ -717,62 +1150,39 @@ public class Main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        JFileChooser jfc = new JFileChooser();
-        FileNameExtensionFilter filtro
-                = new FileNameExtensionFilter(
-                        "Diagramas de Flujo", "ddf");
-        jfc.setFileFilter(filtro);
-        int seleccion = jfc.showSaveDialog(this);
-
-        FileOutputStream fw = null;
-        ObjectOutputStream bw = null;
-        if (seleccion == JFileChooser.APPROVE_OPTION) {
-            try {
-                File fichero = null;
-                if (jfc.getFileFilter().getDescription().equals(
-                        "Diagramas de Flujo")) {
-                    fichero
-                            = new File(jfc.getSelectedFile().getPath() + ".ddf");
-                    archivoAbierto = fichero;
-                    recientes.add(fichero);
-                } else {
-                    fichero = jfc.getSelectedFile();
-                }
-
-                fw = new FileOutputStream(fichero);
-                bw = new ObjectOutputStream(fw);
-                Date Fecha = new Date();
-                Documento d = new Documento(codeBox, pane, doc, style, Fecha);
-                bw.writeObject(d);
-                bw.flush();
-
-                JOptionPane.showMessageDialog(this,
-                        "Archivo guardado exitosamente");
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-        try {
-            bw.close();
-            fw.close();
-        } catch (IOException ex) {
-        }
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         archivoAbierto = null;
         String data = codeBox.getText().trim();
         String data2 = pane.getText().trim();
+        boolean flag = true;
         if (!data.equals("") | !data2.equals("")) {
             int retorno = JOptionPane.showConfirmDialog(null, "Hay un projecto abierto actualmente. Desea Continuar:");
             if (retorno == 0) {
                 pane.setText("");
                 codeBox.setText("");
+                flag = true;
             }
+        } else {
+            flag = true;
         }
+        if (flag == true) {
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            modelo.setRowCount(0);
+            tabla.setModel(modelo);
+            tabla.setEnabled(false);
+            btaddclass.setEnabled(false);
+            btupdateclass.setEnabled(false);
+            btdeleteclass.setEnabled(false);
+            addvar.setEnabled(false);
+            remvar.setEnabled(false);
+
+            btnewclass.setEnabled(true);
+
+            clases.clear();
+            mostrarUML();
+
+        }
+
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -786,6 +1196,7 @@ public class Main extends javax.swing.JFrame {
                 codeBox.setText("");
             }
         }
+        mostrarFC();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -940,6 +1351,423 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton8MouseClicked
 
+    private void btaddclassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btaddclassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btaddclassActionPerformed
+
+    private void addvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addvarActionPerformed
+        addTableRow();
+    }//GEN-LAST:event_addvarActionPerformed
+
+    private void remvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remvarActionPerformed
+        if (tabla.getSelectedRow() >= 0) {
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            modelo.removeRow(tabla.getSelectedRow());
+            tabla.setModel(modelo);
+        } else {
+            JOptionPane.showMessageDialog(UMLCreation, "No ha seleccionado una variable que borrar.");
+        }
+
+
+    }//GEN-LAST:event_remvarActionPerformed
+
+    private void btnewclassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnewclassActionPerformed
+
+    }//GEN-LAST:event_btnewclassActionPerformed
+
+    private void clasenombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasenombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clasenombreActionPerformed
+
+    private void checkpadreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkpadreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkpadreActionPerformed
+
+    private void btaddclassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btaddclassMouseClicked
+        boolean flagVar = true;
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            if (tabla.getValueAt(i, 0).toString().equals("Seleccione Tipo de Variable")) {
+                flagVar = false;
+            } else if (tabla.getValueAt(i, 1).toString().isBlank()) {
+                flagVar = false;
+            }
+        }
+        if (clasenombre.getText().isBlank()) {
+            JOptionPane.showMessageDialog(UMLCreation, "La clase no tiene Nombre.");
+        } else if (checkpadre.isSelected() && clases.isEmpty()) {
+            JOptionPane.showMessageDialog(UMLCreation, "La clase no puede tener padre ya que no hay clases creadas anteriormente.");
+        } else if (checkpadre.isSelected() && clasescb.getSelectedIndex() < 0) {
+            JOptionPane.showMessageDialog(UMLCreation, "Porfavor seleccione la clase padre deseada.");
+        } else if (flagVar == false) {
+            JOptionPane.showMessageDialog(UMLCreation, "Asegurese de haber seleccionado el tipo de Variable y haberle asignado un nombre a todas las variable.");
+        } else {
+            Clase c = new Clase();
+            c.setNombre(clasenombre.getText());
+            for (int i = 0; i < tabla.getRowCount(); i++) {
+                String var = tabla.getValueAt(i, 0).toString() + " " + tabla.getValueAt(i, 1).toString();
+                c.addVar(var);
+            }
+            if (checkpadre.isSelected()) {//Add a padre correspondiente
+                String nombrePa = (clasescb.getSelectedItem().toString());
+                clases = addClase(clases, c, nombrePa);
+
+            } else {
+                clases.add(c);
+            }
+            //Update del JTree
+            DefaultMutableTreeNode UML = new DefaultMutableTreeNode("UML");
+            UML = updateTree(clases, UML);
+            DefaultTreeModel treeModel = new DefaultTreeModel(UML);
+            jtree.setModel(treeModel);
+
+            //Update del ComboBox
+            DefaultComboBoxModel cbUMLModelo = (DefaultComboBoxModel) clasescb.getModel();
+            cbUMLModelo.removeAllElements();
+            cbUMLModelo = llenarCB(clases, cbUMLModelo);
+            clasescb.setModel(cbUMLModelo);
+
+            //Reset Table
+            resetTable();
+
+            //Lock everything again
+            clasenombre.setEnabled(false);
+            tabla.setEnabled(false);
+            btaddclass.setEnabled(false);
+            addvar.setEnabled(false);
+            remvar.setEnabled(false);
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            modelo.setRowCount(0);
+            tabla.setModel(modelo);
+
+        }
+    }//GEN-LAST:event_btaddclassMouseClicked
+
+    private void btnewclassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnewclassMouseClicked
+        tabla.setEnabled(true);
+        btaddclass.setEnabled(true);
+        addvar.setEnabled(true);
+        remvar.setEnabled(true);
+        addTableRow();
+    }//GEN-LAST:event_btnewclassMouseClicked
+
+    private void btdeleteclassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btdeleteclassMouseClicked
+
+        System.out.println(jtree.getSelectionPath().toString());
+    }//GEN-LAST:event_btdeleteclassMouseClicked
+
+    private void jButton12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton12MouseClicked
+        try {
+            DefaultMutableTreeNode selectedElement = (DefaultMutableTreeNode) jtree.getSelectionPath().getLastPathComponent();
+            Clase c = bringClase(clases, selectedElement.getUserObject().toString());
+            abierta = c;
+            clasenombre.setText(c.getNombre());
+            fillTable(c);
+            btaddclass.setEnabled(false);
+            btupdateclass.setEnabled(true);
+            btdeleteclass.setEnabled(true);
+
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(UMLCreation, "ERROR. Asegurese de seleccionar en el JTREE la clase a abrir.");
+        }
+
+    }//GEN-LAST:event_jButton12MouseClicked
+
+    private void btupdateclassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btupdateclassMouseClicked
+        Clase c = new Clase();
+        c.setNombre(clasenombre.getText());
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            String var = tabla.getValueAt(i, 0).toString() + " " + tabla.getValueAt(i, 1).toString();
+            c.addVar(var);
+        }
+        c.setHijos(abierta.getHijos());
+        updateClase(clases, c, abierta.getNombre().toString());
+        abierta = null;
+
+        //Update del JTree
+        DefaultMutableTreeNode UML = new DefaultMutableTreeNode("UML");
+        UML = updateTree(clases, UML);
+        DefaultTreeModel treeModel = new DefaultTreeModel(UML);
+        jtree.setModel(treeModel);
+
+        //Update del ComboBox
+        DefaultComboBoxModel cbUMLModelo = (DefaultComboBoxModel) clasescb.getModel();
+        cbUMLModelo.removeAllElements();
+        cbUMLModelo = llenarCB(clases, cbUMLModelo);
+        clasescb.setModel(cbUMLModelo);
+
+        //Reset Table
+        resetTable();
+
+        btaddclass.setEnabled(true);
+        btupdateclass.setEnabled(false);
+        btdeleteclass.setEnabled(false);
+    }//GEN-LAST:event_btupdateclassMouseClicked
+
+    private void btupdateclassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btupdateclassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btupdateclassActionPerformed
+
+    private void btdeleteclassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btdeleteclassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btdeleteclassActionPerformed
+
+    private void jButton10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseClicked
+        String code = generateCodeUML(clases, 0);
+        System.out.println(code
+        );
+        UMLcode.setText(code);
+    }//GEN-LAST:event_jButton10MouseClicked
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        JFileChooser jfc = new JFileChooser();
+        FileNameExtensionFilter filtro
+                = new FileNameExtensionFilter(
+                        "Archivo UML", "uml");
+        jfc.setFileFilter(filtro);
+        int seleccion = jfc.showSaveDialog(this);
+
+        FileOutputStream fw = null;
+        ObjectOutputStream bw = null;
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            try {
+                File fichero = null;
+                if (jfc.getFileFilter().getDescription().equals(
+                        "Archivo UML")) {
+                    fichero
+                            = new File(jfc.getSelectedFile().getPath() + ".uml");
+                    archivoAbierto = fichero;
+                    recientes.add(fichero);
+                } else {
+                    fichero = jfc.getSelectedFile();
+                }
+
+                fw = new FileOutputStream(fichero);
+                bw = new ObjectOutputStream(fw);
+                Date Fecha = new Date();
+                UML u = new UML(clases, UMLcode.getText(), Fecha);
+                bw.writeObject(u);
+                bw.flush();
+
+                JOptionPane.showMessageDialog(this,
+                        "Archivo guardado exitosamente");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            bw.close();
+            fw.close();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        File fichero = null;
+        FileInputStream entrada = null;
+        ObjectInputStream objeto = null;
+        try {
+            JFileChooser jfc = new JFileChooser();
+            FileNameExtensionFilter filtro
+                    = new FileNameExtensionFilter(
+                            "Archivo UML", "uml");
+            jfc.setFileFilter(filtro);
+            int seleccion = jfc.showOpenDialog(this);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                fichero = jfc.getSelectedFile();
+                archivoAbierto = fichero;
+                entrada
+                        = new FileInputStream(fichero);
+                objeto
+                        = new ObjectInputStream(entrada);
+
+                abrirUML(objeto);
+                //Update del JTree
+                DefaultMutableTreeNode UML = new DefaultMutableTreeNode("UML");
+                UML = updateTree(clases, UML);
+                DefaultTreeModel treeModel = new DefaultTreeModel(UML);
+                jtree.setModel(treeModel);
+
+                //Update del ComboBox
+                DefaultComboBoxModel cbUMLModelo = (DefaultComboBoxModel) clasescb.getModel();
+                cbUMLModelo.removeAllElements();
+                cbUMLModelo = llenarCB(clases, cbUMLModelo);
+                clasescb.setModel(cbUMLModelo);
+
+                //Reset Table
+                resetTable();
+
+                //Lock everything again
+                clasenombre.setEnabled(false);
+                tabla.setEnabled(false);
+                btaddclass.setEnabled(false);
+                addvar.setEnabled(false);
+                remvar.setEnabled(false);
+                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+                modelo.setRowCount(0);
+                tabla.setModel(modelo);
+
+            } //fin if
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            objeto.close();
+            entrada.close();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        JFileChooser jfc = new JFileChooser();
+        FileNameExtensionFilter filtro
+                = new FileNameExtensionFilter(
+                        "Diagramas de Flujo", "ddf");
+        jfc.setFileFilter(filtro);
+        int seleccion = jfc.showSaveDialog(this);
+
+        FileOutputStream fw = null;
+        ObjectOutputStream bw = null;
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            try {
+                File fichero = null;
+                if (jfc.getFileFilter().getDescription().equals(
+                        "Diagramas de Flujo")) {
+                    fichero
+                            = new File(jfc.getSelectedFile().getPath() + ".ddf");
+                    archivoAbierto = fichero;
+                    recientes.add(fichero);
+                } else {
+                    fichero = jfc.getSelectedFile();
+                }
+
+                fw = new FileOutputStream(fichero);
+                bw = new ObjectOutputStream(fw);
+                Date Fecha = new Date();
+                Documento d = new Documento(codeBox, pane, doc, style, Fecha);
+                bw.writeObject(d);
+                bw.flush();
+
+                JOptionPane.showMessageDialog(this,
+                        "Archivo guardado exitosamente");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            bw.close();
+            fw.close();
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        String data = codeBox.getText().trim();
+        String data2 = pane.getText().trim();
+        boolean flag = false;
+        if (!data.equals("") | !data2.equals("")) {
+            int retorno = JOptionPane.showConfirmDialog(null, "Hay un projecto abierto actualmente. Desea Continuar:");
+            if (retorno == 0) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+        } else {
+            flag = true;
+        }
+        if (flag == true) {
+            File fichero = null;
+            FileInputStream entrada = null;
+            ObjectInputStream objeto = null;
+            try {
+                JFileChooser jfc = new JFileChooser();
+                FileNameExtensionFilter filtro
+                        = new FileNameExtensionFilter(
+                                "Diagramas de Flujo", "ddf");
+                jfc.setFileFilter(filtro);
+                int seleccion = jfc.showOpenDialog(this);
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
+                    fichero = jfc.getSelectedFile();
+                    archivoAbierto = fichero;
+                    entrada
+                            = new FileInputStream(fichero);
+                    objeto
+                            = new ObjectInputStream(entrada);
+
+                    abrirDocumento(objeto);
+
+                } //fin if
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                objeto.close();
+                entrada.close();
+            } catch (IOException ex) {
+            }
+        }
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        String data = codeBox.getText().trim();
+
+        String data2 = pane.getText().trim();
+        String nombre = "";
+        boolean flag = false;
+        if (!data.equals("") | !data2.equals("")) {
+            int retorno = JOptionPane.showConfirmDialog(null, "Hay un projecto abierto actualmente. Desea Continuar:");
+            if (retorno == 0) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+        } else {
+            flag = true;
+        }
+        if (flag == true) {
+            DefaultTableModel modelo = (DefaultTableModel) recientesTable.getModel();
+            modelo.setRowCount(0);
+            for (int i = 0; i < recientes.size(); i++) {
+                File fichero = null;
+                FileInputStream entrada = null;
+                ObjectInputStream objeto = null;
+                try {
+                    fichero = recientes.get(i);
+
+                    int idx = fichero.toString().replaceAll("\\\\", "/").lastIndexOf("/");
+                    nombre = (idx >= 0 ? fichero.toString().substring(idx + 1) : fichero.toString());
+
+                    entrada
+                            = new FileInputStream(fichero);
+                    objeto
+                            = new ObjectInputStream(entrada);
+                    Documento temp = (Documento) objeto.readObject();
+                    SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d, yyyy ' - ' HH:mm:ss");
+                    String strDate = formatter.format(((Documento) temp).getFecha());
+
+                    Object[] newrow = {nombre, fichero.toString(), strDate};
+                    modelo.addRow(newrow);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    objeto.close();
+                    entrada.close();
+                } catch (IOException ex) {
+                }
+
+            }
+            recientesTable.setModel(modelo);
+            mostrarRecientes();
+        }
+
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -975,11 +1803,113 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+    public void addTableRow() {
+        DefaultTableModel modeloTabla1 = (DefaultTableModel) tabla.getModel();
+        TableColumn columna = tabla.getColumnModel().getColumn(0);
+        JComboBox<String> comboBox = new JComboBox<>();
+        DefaultComboBoxModel modeloCBVariables = (DefaultComboBoxModel) comboBox.getModel();
+        modeloCBVariables.addElement("String");
+        modeloCBVariables.addElement("char");
+        modeloCBVariables.addElement("int");
+        modeloCBVariables.addElement("Double");
+        modeloCBVariables.addElement("Boolean");
+        comboBox.setModel(modeloCBVariables);
+        columna.setCellEditor(new DefaultCellEditor(comboBox));
+        Object[] newrow = {"Seleccione Tipo de Variable", ""};
+        modeloTabla1.addRow(newrow);
+        tabla.setModel(modeloTabla1);
+    }
+
+    public void resetTable() {
+        DefaultTableModel modeloTabla1 = (DefaultTableModel) tabla.getModel();
+        modeloTabla1.setRowCount(0);
+        TableColumn columna = tabla.getColumnModel().getColumn(0);
+        JComboBox<String> comboBox = new JComboBox<>();
+        DefaultComboBoxModel modeloCBVariables = (DefaultComboBoxModel) comboBox.getModel();
+        modeloCBVariables.addElement("String");
+        modeloCBVariables.addElement("char");
+        modeloCBVariables.addElement("int");
+        modeloCBVariables.addElement("Double");
+        modeloCBVariables.addElement("Boolean");
+        comboBox.setModel(modeloCBVariables);
+        columna.setCellEditor(new DefaultCellEditor(comboBox));
+        Object[] newrow = {"Seleccione Tipo de Variable", ""};
+        modeloTabla1.addRow(newrow);
+        tabla.setModel(modeloTabla1);
+        clasenombre.setText("");
+    }
+
+    public void fillTable(Clase clase) {
+        DefaultTableModel modeloTabla1 = (DefaultTableModel) tabla.getModel();
+        modeloTabla1.setRowCount(0);
+        for (int i = 0; i < clase.getVar().size(); i++) {
+            String type = "";
+            String name = "";
+            String variable = clase.getVar().get(i).toString();
+            StringTokenizer token = new StringTokenizer(variable);
+            type = token.nextToken();
+            name = token.nextToken();
+
+            TableColumn columna = tabla.getColumnModel().getColumn(0);
+            JComboBox<String> comboBox = new JComboBox<>();
+            DefaultComboBoxModel modeloCBVariables = (DefaultComboBoxModel) comboBox.getModel();
+            modeloCBVariables.addElement("String");
+            modeloCBVariables.addElement("char");
+            modeloCBVariables.addElement("int");
+            modeloCBVariables.addElement("Double");
+            modeloCBVariables.addElement("Boolean");
+            comboBox.setModel(modeloCBVariables);
+
+            switch (type) {
+                case "String": {
+                    comboBox.setSelectedIndex(0);
+                }
+                break;
+                case "char": {
+                    comboBox.setSelectedIndex(1);
+                }
+                break;
+                case "int": {
+                    comboBox.setSelectedIndex(2);
+                }
+                break;
+                case "Double": {
+                    comboBox.setSelectedIndex(3);
+                }
+                break;
+                case "Boolean": {
+                    comboBox.setSelectedIndex(4);
+                }
+                break;
+
+            }
+            columna.setCellEditor(new DefaultCellEditor(comboBox));
+            Object[] newrow = {comboBox.getSelectedItem().toString(), name};
+            modeloTabla1.addRow(newrow);
+        }
+        tabla.setModel(modeloTabla1);
+
+    }
+
     public void mostrarRecientes() {
         RecientesDialog.setModal(true);
         RecientesDialog.pack();
         RecientesDialog.setLocationRelativeTo(this);
         RecientesDialog.setVisible(true);
+    }
+
+    public void mostrarUML() {
+        UMLCreation.setModal(true);
+        UMLCreation.pack();
+        UMLCreation.setLocationRelativeTo(this);
+        UMLCreation.setVisible(true);
+    }
+
+    public void mostrarFC() {
+        FCCreation.setModal(true);
+        FCCreation.pack();
+        FCCreation.setLocationRelativeTo(this);
+        FCCreation.setVisible(true);
     }
 
     public void abrirDocumento(ObjectInputStream objeto) throws IOException, ClassNotFoundException {
@@ -991,14 +1921,124 @@ public class Main extends javax.swing.JFrame {
         codeBox.setDocument(((Documento) temp).getDoc());
     }
 
+    public void abrirUML(ObjectInputStream objeto) throws IOException, ClassNotFoundException {
+        UML temp = (UML) objeto.readObject();
+        clases = temp.getClases();
+        UMLcode.setText(temp.getCodigo());
+    }
+
+    public DefaultMutableTreeNode updateTree(ArrayList<Clase> array, DefaultMutableTreeNode main) {
+        for (int j = 0; j < array.size(); j++) {
+            DefaultMutableTreeNode clase = new DefaultMutableTreeNode(array.get(j).getNombre());
+            main.add(clase);
+            for (int i = 0; i < array.get(j).getVar().size(); i++) {
+                DefaultMutableTreeNode var = new DefaultMutableTreeNode(array.get(j).getVar().get(i).toString());
+                clase.add(var);
+            }
+            if (array.get(j).getHijos().isEmpty() == false) {
+                clase = (updateTree(array.get(j).getHijos(), clase));
+
+            }
+        }
+        return main;
+    }
+
+    public DefaultComboBoxModel llenarCB(ArrayList<Clase> array, DefaultComboBoxModel main) {
+        for (int j = 0; j < array.size(); j++) {
+            main.addElement(array.get(j).getNombre());
+            if (array.get(j).getHijos().isEmpty() == false) {
+                main = llenarCB(array.get(j).getHijos(), main);
+            }
+        }
+        return main;
+    }
+
+    public ArrayList<Clase> addClase(ArrayList<Clase> array, Clase clase, String name) {
+        for (int j = 0; j < array.size(); j++) {
+            if (array.get(j).getNombre().equals(name)) {
+                array.get(j).addHijos(clase);
+                return array;
+            } else if (array.get(j).getHijos().isEmpty() == false) {
+                array.get(j).setHijos(addClase(array.get(j).getHijos(), clase, name));
+            }
+        }
+        return array;
+    }
+
+    public Clase bringClase(ArrayList<Clase> array, String name) {
+        Clase cla = null;
+        for (int j = 0; j < array.size(); j++) {
+            if (array.get(j).getNombre().equals(name)) {
+                cla = array.get(j);
+                return cla;
+            } else if (array.get(j).getHijos().isEmpty() == false) {
+                cla = bringClase(array.get(j).getHijos(), name);
+            }
+        }
+        return cla;
+    }
+
+    public ArrayList<Clase> updateClase(ArrayList<Clase> array, Clase clase, String name) {
+        for (int j = 0; j < array.size(); j++) {
+            if (array.get(j).getNombre().equals(name)) {
+                array.set(j, clase);
+                return array;
+            } else if (array.get(j).getHijos().isEmpty() == false) {
+                array.get(j).setHijos(updateClase(array.get(j).getHijos(), clase, name));
+            }
+        }
+        return array;
+    }
+
+    public String generateCodeUML(ArrayList<Clase> array, int space) {
+        String code = "";
+        String blank = "    ";
+        for (int j = 0; j < array.size(); j++) {
+            if (space == 0) {
+                code += "class " + array.get(j).getNombre().toString() + "\n{\n" + blank + "public:\n";
+                for (int i = 0; i < array.get(j).getVar().size(); i++) {
+                    code += blank + blank + array.get(j).getVar().get(i).toString() + ";\n";
+                }
+            } else {
+                for (int k = 0; k < space; k++) {
+                    code += blank;
+                }
+                code += "public void " + array.get(j).getNombre().toString() + "\n{\n" + blank + "private:\n";
+                for (int i = 0; i < array.get(j).getVar().size(); i++) {
+                    for (int k = 0; k < space; k++) {
+                        code += blank;
+                    }
+                    code += blank + blank + array.get(j).getVar().get(i).toString() + ";\n";
+                }
+            }
+            if (array.get(j).getHijos().isEmpty() == false) {
+                code += generateCodeUML(array.get(j).getHijos(), space + 1);
+            }
+        }
+        return code;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog FCCreation;
     private javax.swing.JDialog RecientesDialog;
+    private javax.swing.JDialog UMLCreation;
+    private javax.swing.JTextPane UMLcode;
+    private javax.swing.JButton addvar;
     private javax.swing.JButton boldButton;
+    private javax.swing.JButton btaddclass;
+    private javax.swing.JButton btdeleteclass;
+    private javax.swing.JButton btnewclass;
+    private javax.swing.JButton btupdateclass;
+    private javax.swing.JCheckBox checkpadre;
+    private javax.swing.JTextField clasenombre;
+    private javax.swing.JComboBox<String> clasescb;
     private javax.swing.JTextPane codeBox;
     private javax.swing.JLabel componentType;
     private javax.swing.JComboBox<String> fontBox;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1007,26 +2047,51 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane3;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar2;
+    private javax.swing.JTree jtree;
     private javax.swing.JProgressBar loadBar;
+    private javax.swing.JTextPane pane;
     private javax.swing.JPanel panelColor;
     private javax.swing.JTable recientesTable;
+    private javax.swing.JButton remvar;
+    private javax.swing.JTable tabla;
     private javax.swing.JComboBox<String> tamanioBox;
     // End of variables declaration//GEN-END:variables
 }
