@@ -5,7 +5,12 @@
  */
 package proyectoparcial_josueespinal_12041171;
 
+import static com.sun.tools.attach.VirtualMachine.list;
 import java.awt.Color;
+import static java.awt.Color.green;
+import static java.awt.Color.red;
+import static java.awt.Color.white;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionListener;
@@ -48,7 +53,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import static java.nio.file.Files.list;
 import java.text.DateFormat;
+import static java.util.Collections.list;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -58,10 +65,14 @@ import javax.swing.InputMap;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.KeyStroke;
+import javax.swing.ListSelectionModel;
 import javax.swing.Timer;
 import javax.swing.TransferHandler;
 import javax.swing.border.LineBorder;
@@ -81,6 +92,8 @@ public class Main extends javax.swing.JFrame {
     StyledDocument doc;
     Clase abierta = null;
     Style style;
+    int x2 = 0;
+    int y2 = 0;
 
     public Main() {
         initComponents();
@@ -123,8 +136,6 @@ public class Main extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         UMLCreation = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        UMLcode = new javax.swing.JTextPane();
         jScrollPane6 = new javax.swing.JScrollPane();
         jtree = new javax.swing.JTree();
         jPanel2 = new javax.swing.JPanel();
@@ -143,6 +154,11 @@ public class Main extends javax.swing.JFrame {
         btupdateclass = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        pan = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        UMLcode = new javax.swing.JTextPane();
+        jButton11 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -172,8 +188,8 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         pane = new javax.swing.JTextPane();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        panel = new javax.swing.JPanel();
+        jButton13 = new javax.swing.JButton();
         jMenuBar3 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -181,14 +197,16 @@ public class Main extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
 
         recientesTable.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         recientesTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -278,8 +296,6 @@ public class Main extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(51, 51, 51));
         jPanel3.setForeground(new java.awt.Color(51, 51, 51));
         jPanel3.setMaximumSize(new java.awt.Dimension(848, 569));
-
-        jScrollPane7.setViewportView(UMLcode);
 
         jtree.setBorder(null);
         jtree.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -486,6 +502,35 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        pan.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout panLayout = new javax.swing.GroupLayout(pan);
+        pan.setLayout(panLayout);
+        panLayout.setHorizontalGroup(
+            panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 565, Short.MAX_VALUE)
+        );
+        panLayout.setVerticalGroup(
+            panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+
+        jScrollPane7.setViewportView(UMLcode);
+
+        jButton11.setText("jButton11");
+        jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton11MouseClicked(evt);
+            }
+        });
+
+        jButton14.setText("jButton14");
+        jButton14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton14MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -493,38 +538,62 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton10))
+                    .addComponent(jScrollPane6))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane7)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(518, 518, 518)
+                        .addComponent(jButton11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(6, 6, 6))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane7)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(pan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addComponent(jButton11)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(6, 6, 6))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         jMenuBar2.setForeground(new java.awt.Color(51, 51, 51));
 
+        jMenu2.setBackground(new java.awt.Color(204, 204, 204));
         jMenu2.setText("File");
 
         jMenuItem1.setText("Nuevo Proyecto");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem1);
 
         jMenuItem7.setText("Guardar como");
@@ -551,11 +620,11 @@ public class Main extends javax.swing.JFrame {
         UMLCreation.getContentPane().setLayout(UMLCreationLayout);
         UMLCreationLayout.setHorizontalGroup(
             UMLCreationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         UMLCreationLayout.setVerticalGroup(
             UMLCreationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jToolBar2.setRollover(true);
@@ -735,29 +804,36 @@ public class Main extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(pane);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList1);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(157, 157, 157)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(179, Short.MAX_VALUE))
+            .addGap(0, 107, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 27, Short.MAX_VALUE)
         );
+
+        panel.setBackground(new java.awt.Color(0, 153, 153));
+
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 435, Short.MAX_VALUE)
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jButton13.setText("jButton13");
+        jButton13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton13MouseClicked(evt);
+            }
+        });
 
         jLayeredPane1.setLayer(jToolBar2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -769,6 +845,8 @@ public class Main extends javax.swing.JFrame {
         jLayeredPane1.setLayer(componentType, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jButton13, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -778,21 +856,22 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton13)
+                        .addGap(64, 64, 64)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(171, 171, 171))
+                        .addGap(52, 52, 52)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(componentType)
-                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(18, 18, 18)
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
                                 .addComponent(jButton6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(loadBar, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
@@ -813,14 +892,18 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton13)
+                            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(componentType))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton6)
@@ -885,10 +968,75 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel4.setBackground(new java.awt.Color(102, 0, 153));
+        jPanel4.setForeground(new java.awt.Color(51, 0, 153));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Flujo Gramas");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel3)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("INFORMACION:");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Flujo Gramas");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel5)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(44, 44, 44)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(111, 111, 111))
+        );
+
         jMenu1.setText("File");
 
-        jMenu3.setText("Nuevo Projecto");
-
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoparcial_josueespinal_12041171/flujoGramaIcon3.png"))); // NOI18N
         jMenuItem2.setText("Diagrama de Flujo");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -896,8 +1044,9 @@ public class Main extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem2);
+        jMenu1.add(jMenuItem2);
 
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectoparcial_josueespinal_12041171/UMLIcon1.png"))); // NOI18N
         jMenuItem3.setText("UML de Clases");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -905,29 +1054,7 @@ public class Main extends javax.swing.JFrame {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem3);
-
-        jMenu1.add(jMenu3);
-
-        jMenu4.setText("Abrir");
-
-        jMenuItem6.setText("Recientes");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem6);
-
-        jMenuItem5.setText("Abrir Archivo");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem5);
-
-        jMenu1.add(jMenu4);
+        jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
 
@@ -937,11 +1064,13 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 455, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 333, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 337, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -1047,109 +1176,6 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        String data = codeBox.getText().trim();
-        String data2 = pane.getText().trim();
-        boolean flag = false;
-        if (!data.equals("") | !data2.equals("")) {
-            int retorno = JOptionPane.showConfirmDialog(null, "Hay un projecto abierto actualmente. Desea Continuar:");
-            if (retorno == 0) {
-                flag = true;
-            } else {
-                flag = false;
-            }
-        } else {
-            flag = true;
-        }
-        if (flag == true) {
-            File fichero = null;
-            FileInputStream entrada = null;
-            ObjectInputStream objeto = null;
-            try {
-                JFileChooser jfc = new JFileChooser();
-                FileNameExtensionFilter filtro
-                        = new FileNameExtensionFilter(
-                                "Diagramas de Flujo", "ddf");
-                jfc.setFileFilter(filtro);
-                int seleccion = jfc.showOpenDialog(this);
-                if (seleccion == JFileChooser.APPROVE_OPTION) {
-                    fichero = jfc.getSelectedFile();
-                    archivoAbierto = fichero;
-                    entrada
-                            = new FileInputStream(fichero);
-                    objeto
-                            = new ObjectInputStream(entrada);
-
-                    abrirDocumento(objeto);
-
-                } //fin if
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                objeto.close();
-                entrada.close();
-            } catch (IOException ex) {
-            }
-        }
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        String data = codeBox.getText().trim();
-
-        String data2 = pane.getText().trim();
-        String nombre = "";
-        boolean flag = false;
-        if (!data.equals("") | !data2.equals("")) {
-            int retorno = JOptionPane.showConfirmDialog(null, "Hay un projecto abierto actualmente. Desea Continuar:");
-            if (retorno == 0) {
-                flag = true;
-            } else {
-                flag = false;
-            }
-        } else {
-            flag = true;
-        }
-        if (flag == true) {
-            DefaultTableModel modelo = (DefaultTableModel) recientesTable.getModel();
-            modelo.setRowCount(0);
-            for (int i = 0; i < recientes.size(); i++) {
-                File fichero = null;
-                FileInputStream entrada = null;
-                ObjectInputStream objeto = null;
-                try {
-                    fichero = recientes.get(i);
-
-                    int idx = fichero.toString().replaceAll("\\\\", "/").lastIndexOf("/");
-                    nombre = (idx >= 0 ? fichero.toString().substring(idx + 1) : fichero.toString());
-
-                    entrada
-                            = new FileInputStream(fichero);
-                    objeto
-                            = new ObjectInputStream(entrada);
-                    Documento temp = (Documento) objeto.readObject();
-                    SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d, yyyy ' - ' HH:mm:ss");
-                    String strDate = formatter.format(((Documento) temp).getFecha());
-
-                    Object[] newrow = {nombre, fichero.toString(), strDate};
-                    modelo.addRow(newrow);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                try {
-                    objeto.close();
-                    entrada.close();
-                } catch (IOException ex) {
-                }
-
-            }
-            recientesTable.setModel(modelo);
-            mostrarRecientes();
-        }
-
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
-
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         archivoAbierto = null;
         String data = codeBox.getText().trim();
@@ -1186,6 +1212,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+
         archivoAbierto = null;
         String data = codeBox.getText().trim();
         String data2 = pane.getText().trim();
@@ -1409,6 +1436,7 @@ public class Main extends javax.swing.JFrame {
             }
             if (checkpadre.isSelected()) {//Add a padre correspondiente
                 String nombrePa = (clasescb.getSelectedItem().toString());
+
                 clases = addClase(clases, c, nombrePa);
 
             } else {
@@ -1430,7 +1458,6 @@ public class Main extends javax.swing.JFrame {
             resetTable();
 
             //Lock everything again
-            clasenombre.setEnabled(false);
             tabla.setEnabled(false);
             btaddclass.setEnabled(false);
             addvar.setEnabled(false);
@@ -1438,6 +1465,14 @@ public class Main extends javax.swing.JFrame {
             DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
             modelo.setRowCount(0);
             tabla.setModel(modelo);
+
+            //Try 1 de GUI Pane
+            JList<String> list = new JList();
+
+            list.setSize(50, 50);
+            pan.add(list);
+            list.setAlignmentX(30);
+            list.setAlignmentY(50);
 
         }
     }//GEN-LAST:event_btaddclassMouseClicked
@@ -1451,8 +1486,19 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnewclassMouseClicked
 
     private void btdeleteclassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btdeleteclassMouseClicked
-
         System.out.println(jtree.getSelectionPath().toString());
+        StringTokenizer st = new StringTokenizer(jtree.getSelectionPath().toString().toString());  
+        String lastToken = null;
+        while (st.hasMoreElements()) {
+            lastToken = st.nextToken();
+        }
+        String loc = "";
+        for(int i = 0; i < lastToken.length()-1; i++){
+            loc += lastToken.charAt(i);
+        }
+        
+        clases = deleteClase(clases, lastToken);
+        
     }//GEN-LAST:event_btdeleteclassMouseClicked
 
     private void jButton12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton12MouseClicked
@@ -1465,6 +1511,10 @@ public class Main extends javax.swing.JFrame {
             btaddclass.setEnabled(false);
             btupdateclass.setEnabled(true);
             btdeleteclass.setEnabled(true);
+            clasenombre.setEnabled(true);
+            addvar.setEnabled(true);
+            remvar.setEnabled(true);
+            tabla.setEnabled(true);
 
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(UMLCreation, "ERROR. Asegurese de seleccionar en el JTREE la clase a abrir.");
@@ -1512,7 +1562,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btdeleteclassActionPerformed
 
     private void jButton10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseClicked
-        String code = generateCodeUML(clases, 0);
+        String code = generateCodeUML(clases, 0, "");
         System.out.println(code
         );
         UMLcode.setText(code);
@@ -1564,60 +1614,50 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        File fichero = null;
-        FileInputStream entrada = null;
-        ObjectInputStream objeto = null;
-        try {
-            JFileChooser jfc = new JFileChooser();
-            FileNameExtensionFilter filtro
-                    = new FileNameExtensionFilter(
-                            "Archivo UML", "uml");
-            jfc.setFileFilter(filtro);
-            int seleccion = jfc.showOpenDialog(this);
-            if (seleccion == JFileChooser.APPROVE_OPTION) {
-                fichero = jfc.getSelectedFile();
-                archivoAbierto = fichero;
-                entrada
-                        = new FileInputStream(fichero);
-                objeto
-                        = new ObjectInputStream(entrada);
 
-                abrirUML(objeto);
-                //Update del JTree
-                DefaultMutableTreeNode UML = new DefaultMutableTreeNode("UML");
-                UML = updateTree(clases, UML);
-                DefaultTreeModel treeModel = new DefaultTreeModel(UML);
-                jtree.setModel(treeModel);
+        String data = UMLcode.getText().trim();
 
-                //Update del ComboBox
-                DefaultComboBoxModel cbUMLModelo = (DefaultComboBoxModel) clasescb.getModel();
-                cbUMLModelo.removeAllElements();
-                cbUMLModelo = llenarCB(clases, cbUMLModelo);
-                clasescb.setModel(cbUMLModelo);
-
-                //Reset Table
-                resetTable();
-
-                //Lock everything again
-                clasenombre.setEnabled(false);
-                tabla.setEnabled(false);
-                btaddclass.setEnabled(false);
-                addvar.setEnabled(false);
-                remvar.setEnabled(false);
-                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-                modelo.setRowCount(0);
-                tabla.setModel(modelo);
-
-            } //fin if
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        String nombre = "";
+        boolean flag = false;
+        if (!data.equals("")) {
+            int retorno = JOptionPane.showConfirmDialog(null, "Hay un projecto abierto actualmente. Desea Continuar:");
+            if (retorno == 0) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+        } else {
+            flag = true;
         }
-        try {
-            objeto.close();
-            entrada.close();
-        } catch (IOException ex) {
+        if (flag == true) {
+            File fichero = null;
+            FileInputStream entrada = null;
+            ObjectInputStream objeto = null;
+            try {
+                JFileChooser jfc = new JFileChooser();
+                FileNameExtensionFilter filtro
+                        = new FileNameExtensionFilter(
+                                "Archivo UML", "uml");
+                jfc.setFileFilter(filtro);
+                int seleccion = jfc.showOpenDialog(this);
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
+                    fichero = jfc.getSelectedFile();
+                    archivoAbierto = fichero;
+                    entrada = new FileInputStream(fichero);
+                    objeto = new ObjectInputStream(entrada);
+                    abrirUML2(objeto);
+                } //fin if
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                objeto.close();
+                entrada.close();
+            } catch (IOException ex) {
+            }
         }
+
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -1768,9 +1808,126 @@ public class Main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseClicked
+        JList list = new JList();
+        list.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+        pan.add(list);
+
+
+    }//GEN-LAST:event_jButton11MouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        pane.setText("");
+
+        //Update del JTree
+        DefaultMutableTreeNode UML = new DefaultMutableTreeNode("UML");
+        DefaultTreeModel treeModel = new DefaultTreeModel(UML);
+        jtree.setModel(treeModel);
+
+        //Update del ComboBox
+        DefaultComboBoxModel cbUMLModelo = new DefaultComboBoxModel();
+        cbUMLModelo.removeAllElements();
+        clasescb.setModel(cbUMLModelo);
+
+        //Reset Table
+        resetTable();
+
+        //Lock everything again
+        clasenombre.setEnabled(false);
+        btaddclass.setEnabled(false);
+        addvar.setEnabled(false);
+        remvar.setEnabled(false);
+        clasenombre.setEnabled(true);
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.setRowCount(0);
+        tabla.setModel(modelo);
+
+        //reset pane
+        pan.removeAll();
+        pan.revalidate();
+        pan.repaint();
+
+        UMLcode.setText("");
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton13MouseClicked
+        /*panel.add(newArea(red));
+        panel.revalidate();
+        validate();*/
+        JLabel lbl1 = new JLabel("label 1");
+        JLabel lbl2 = new JLabel("label 2");
+        JLabel lbl3 = new JLabel("label 3");
+        JLabel lbl4 = new JLabel("label 4");
+        JLabel lbl5 = new JLabel("label 5");
+        System.out.println(panel.getWidth());
+        System.out.println(panel.getHeight());
+
+        panel.add(lbl1);
+        panel.add(lbl2);
+        panel.add(lbl3);
+        panel.add(lbl4);
+        panel.add(lbl5);
+
+        lbl1.setLocation(27, 20);
+        lbl2.setLocation(123, 20);
+        lbl3.setLocation(273, 20);
+        lbl4.setLocation(363, 20);
+        lbl5.setLocation(453, 20);
+
+        lbl1.setSize(86, 14);
+        lbl2.setSize(140, 14);
+        lbl3.setSize(80, 14);
+        lbl4.setSize(80, 14);
+        lbl5.setSize(130, 14);
+    }//GEN-LAST:event_jButton13MouseClicked
+
+    private void jButton14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton14MouseClicked
+        /* if(x2 == 0){
+            x2 = pan.getWidth()/2;
+        }
+        
+        DefaultListModel<String> l1 = new DefaultListModel<>();
+        l1.addElement("CLASE: " + (clases.get(0).getNombre()).toUpperCase());
+        for(int i = 0; i < clases.get(0).getVar().size(); i++){
+            l1.addElement(clases.get(0).getVar().get(i));
+        }
+        JList<String> list = new JList<>(l1);
+        int height = 16;
+
+        list.setBounds(100, 100, 80, 80);
+        //each List row is 16 pixels
+        pan.add(list);
+        list.setLocation(50,30);*/
+        updatePanel(clases, pan.getWidth(), 10);
+        pan.revalidate();
+        pan.repaint();
+
+    }//GEN-LAST:event_jButton14MouseClicked
+    public JList createList(Clase c) {
+        DefaultListModel<String> l1 = new DefaultListModel<>();
+        l1.addElement("CLASE: " + ((c.getNombre()).toUpperCase()));
+        JList<String> list = new JList<>(l1);
+        int height = 16;
+        for (int i = 0; i < c.getVar().size(); i++) {
+            height += 16;
+            l1.addElement(c.getVar().get(i));
+        }
+        list.setSize(100, height);
+        //each List row is 16 pixels
+        return list;
+
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1782,16 +1939,24 @@ public class Main extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -1808,10 +1973,10 @@ public class Main extends javax.swing.JFrame {
         TableColumn columna = tabla.getColumnModel().getColumn(0);
         JComboBox<String> comboBox = new JComboBox<>();
         DefaultComboBoxModel modeloCBVariables = (DefaultComboBoxModel) comboBox.getModel();
-        modeloCBVariables.addElement("String");
+        modeloCBVariables.addElement("string");
         modeloCBVariables.addElement("char");
         modeloCBVariables.addElement("int");
-        modeloCBVariables.addElement("Double");
+        modeloCBVariables.addElement("double");
         modeloCBVariables.addElement("Boolean");
         comboBox.setModel(modeloCBVariables);
         columna.setCellEditor(new DefaultCellEditor(comboBox));
@@ -1826,10 +1991,10 @@ public class Main extends javax.swing.JFrame {
         TableColumn columna = tabla.getColumnModel().getColumn(0);
         JComboBox<String> comboBox = new JComboBox<>();
         DefaultComboBoxModel modeloCBVariables = (DefaultComboBoxModel) comboBox.getModel();
-        modeloCBVariables.addElement("String");
+        modeloCBVariables.addElement("string");
         modeloCBVariables.addElement("char");
         modeloCBVariables.addElement("int");
-        modeloCBVariables.addElement("Double");
+        modeloCBVariables.addElement("double");
         modeloCBVariables.addElement("Boolean");
         comboBox.setModel(modeloCBVariables);
         columna.setCellEditor(new DefaultCellEditor(comboBox));
@@ -1853,15 +2018,15 @@ public class Main extends javax.swing.JFrame {
             TableColumn columna = tabla.getColumnModel().getColumn(0);
             JComboBox<String> comboBox = new JComboBox<>();
             DefaultComboBoxModel modeloCBVariables = (DefaultComboBoxModel) comboBox.getModel();
-            modeloCBVariables.addElement("String");
+            modeloCBVariables.addElement("string");
             modeloCBVariables.addElement("char");
             modeloCBVariables.addElement("int");
-            modeloCBVariables.addElement("Double");
+            modeloCBVariables.addElement("double");
             modeloCBVariables.addElement("Boolean");
             comboBox.setModel(modeloCBVariables);
 
             switch (type) {
-                case "String": {
+                case "string": {
                     comboBox.setSelectedIndex(0);
                 }
                 break;
@@ -1873,7 +2038,7 @@ public class Main extends javax.swing.JFrame {
                     comboBox.setSelectedIndex(2);
                 }
                 break;
-                case "Double": {
+                case "double": {
                     comboBox.setSelectedIndex(3);
                 }
                 break;
@@ -1919,6 +2084,34 @@ public class Main extends javax.swing.JFrame {
         pane.setText(((Documento) temp).getPanel().getText());
         codeBox.setText(((Documento) temp).getPanelCodigo().getText());
         codeBox.setDocument(((Documento) temp).getDoc());
+    }
+
+    public void abrirUML2(ObjectInputStream objeto) throws IOException, ClassNotFoundException {
+        pane.setText("");
+        abrirUML(objeto);
+        //Update del JTree
+        DefaultMutableTreeNode UML = new DefaultMutableTreeNode("UML");
+        UML = updateTree(clases, UML);
+        DefaultTreeModel treeModel = new DefaultTreeModel(UML);
+        jtree.setModel(treeModel);
+
+        //Update del ComboBox
+        DefaultComboBoxModel cbUMLModelo = (DefaultComboBoxModel) clasescb.getModel();
+        cbUMLModelo.removeAllElements();
+        cbUMLModelo = llenarCB(clases, cbUMLModelo);
+        clasescb.setModel(cbUMLModelo);
+
+        //Reset Table
+        resetTable();
+
+        //Lock everything again
+        clasenombre.setEnabled(false);
+        btaddclass.setEnabled(false);
+        addvar.setEnabled(false);
+        remvar.setEnabled(false);
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.setRowCount(0);
+        tabla.setModel(modelo);
     }
 
     public void abrirUML(ObjectInputStream objeto) throws IOException, ClassNotFoundException {
@@ -1977,6 +2170,17 @@ public class Main extends javax.swing.JFrame {
         }
         return cla;
     }
+    
+    public ArrayList<Clase> deleteClase(ArrayList<Clase> array, String name) {
+        for (int j = 0; j < array.size(); j++) {
+            if (array.get(j).getNombre().equals(name)) {
+                array.remove(j);
+            } else if (array.get(j).getHijos().isEmpty() == false) {
+                array.get(j).setHijos(deleteClase(array.get(j).getHijos(), name));
+            }
+        }
+        return array;
+    }
 
     public ArrayList<Clase> updateClase(ArrayList<Clase> array, Clase clase, String name) {
         for (int j = 0; j < array.size(); j++) {
@@ -1990,7 +2194,22 @@ public class Main extends javax.swing.JFrame {
         return array;
     }
 
-    public String generateCodeUML(ArrayList<Clase> array, int space) {
+    public void updatePanel(ArrayList<Clase> array, int x, int y) {
+        int plus;
+        x = (x / array.size());
+        plus = x;
+        for (int j = 0; j < array.size(); j++) {
+            JList list = createList(array.get(j));
+            pan.add(list);
+            list.setLocation((((x / 2) - 50) + (j * plus)), y);
+            if (array.get(j).getHijos().isEmpty() == false) {
+                updatePanel(array.get(j).getHijos(), x, (y + 10 + list.getHeight()));
+            }
+        }
+
+    }
+
+    public String generateCodeUML(ArrayList<Clase> array, int space, String padre) {
         String code = "";
         String blank = "    ";
         for (int j = 0; j < array.size(); j++) {
@@ -1999,23 +2218,44 @@ public class Main extends javax.swing.JFrame {
                 for (int i = 0; i < array.get(j).getVar().size(); i++) {
                     code += blank + blank + array.get(j).getVar().get(i).toString() + ";\n";
                 }
+                code += "};\n";
             } else {
                 for (int k = 0; k < space; k++) {
                     code += blank;
                 }
-                code += "public void " + array.get(j).getNombre().toString() + "\n{\n" + blank + "private:\n";
+                code += "class " + array.get(j).getNombre().toString() + " : public " + padre;
+                for (int k = 0; k < space; k++) {
+                    code += blank;
+                }
+                code += "{\n";
+                for (int k = 0; k < space; k++) {
+                    code += blank;
+                }
+                code += blank + "private:\n";
                 for (int i = 0; i < array.get(j).getVar().size(); i++) {
                     for (int k = 0; k < space; k++) {
                         code += blank;
                     }
                     code += blank + blank + array.get(j).getVar().get(i).toString() + ";\n";
                 }
+                for (int k = 0; k < space; k++) {
+                    code += blank;
+                }
+                code += "};\n";
             }
             if (array.get(j).getHijos().isEmpty() == false) {
-                code += generateCodeUML(array.get(j).getHijos(), space + 1);
+                code += generateCodeUML(array.get(j).getHijos(), space + 1, array.get(j).getNombre());
             }
         }
         return code;
+    }
+
+    public JTextArea newArea(Color m) {
+        JTextArea t = new JTextArea();
+        t.setBackground(m);
+        t.setForeground(white);
+        t.setSize(200, 200);
+        return t;
     }
 
 
@@ -2038,7 +2278,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> fontBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -2049,13 +2292,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane3;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
@@ -2067,17 +2310,17 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
@@ -2087,7 +2330,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JTree jtree;
     private javax.swing.JProgressBar loadBar;
+    private javax.swing.JPanel pan;
     private javax.swing.JTextPane pane;
+    private javax.swing.JPanel panel;
     private javax.swing.JPanel panelColor;
     private javax.swing.JTable recientesTable;
     private javax.swing.JButton remvar;

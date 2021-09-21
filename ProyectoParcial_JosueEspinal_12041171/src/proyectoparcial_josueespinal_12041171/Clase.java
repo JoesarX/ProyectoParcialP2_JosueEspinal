@@ -1,16 +1,18 @@
 package proyectoparcial_josueespinal_12041171;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Clase {
+public class Clase implements Serializable{
     private String nombre;
     private ArrayList<String> var = new ArrayList<>();
     private int padre;
     private ArrayList<Clase> hijos = new ArrayList<>();
     private int x;
     private int y;
+    private static final long SerialVersionUID = 777L;
 
-    public Clase() {
+    public Clase()  {
     }
 
     public Clase(String nombre, ArrayList<String> var, int padre) {
