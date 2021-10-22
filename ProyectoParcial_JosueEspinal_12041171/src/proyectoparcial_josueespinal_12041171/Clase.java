@@ -1,5 +1,6 @@
 package proyectoparcial_josueespinal_12041171;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ public class Clase implements Serializable{
     private int x;
     private int y;
     private static final long SerialVersionUID = 777L;
+    
 
     public Clase()  {
     }
